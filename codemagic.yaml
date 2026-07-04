@@ -6,6 +6,12 @@ workflows:
       java: 21
       node: 22
     scripts:
+      - name: Cek versi Java
+        script: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+      - name: Pasang dependensi
+        script: npm ci
       - name: Pasang dependensi
         script: npm ci
       - name: Sinkronkan Capacitor ke project Android
