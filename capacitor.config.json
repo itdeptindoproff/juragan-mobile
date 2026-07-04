@@ -1,0 +1,9 @@
+{
+  "appId": "id.biz.juragansejati.portal",
+  "appName": "Juragan",
+  "webDir": "www",
+  "server": {
+    "url": "https://ALAMAT-PORTAL/portal/",
+    "cleartext": false
+  }
+}
