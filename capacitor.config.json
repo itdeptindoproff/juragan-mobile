@@ -3,7 +3,7 @@
   "appName": "Juragan",
   "webDir": "www",
   "server": {
-    "url": "https://ALAMAT-PORTAL/portal/",
+    "url": "https://electric-town-accompanied-kit.trycloudflare.com/portal/",
     "cleartext": false
   }
 }
