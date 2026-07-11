@@ -3,7 +3,7 @@
   "appName": "Juragan",
   "webDir": "www",
   "server": {
-    "url": "https://aggregate-registry-nor-inf.trycloudflare.com/portal/",
+    "url": "https://app.juragansejati.biz.id/portal/",
     "cleartext": false
   }
 }
