@@ -3,7 +3,7 @@
   "appName": "Juragan",
   "webDir": "www",
   "server": {
-    "url": " https://everywhere-aquarium-try-restrict.trycloudflare.com/portal/",
+    "url": "https://app.juragansejati.biz.id/portal/",
     "cleartext": false
   }
 }
