@@ -3,7 +3,7 @@
   "appName": "Juragan",
   "webDir": "www",
   "server": {
-    "url": "https://app.juragansejati.biz.id/portal/",
+    "url": "https://belong-contract-existing-hay.trycloudflare.com/portal",
     "cleartext": false
   }
 }
