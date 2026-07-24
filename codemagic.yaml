@@ -53,30 +53,28 @@ workflows:
     environment:
       node: 22
       xcode: latest
-      cocoapods: default
       ios_signing:
         distribution_type: app_store
         bundle_identifier: id.biz.juragansejati.portal
       vars:
-        XCODE_WORKSPACE: "ios/App/App.xcworkspace"
+        XCODE_PROJECT: "ios/App/App.xcodeproj"
         XCODE_SCHEME: "App"
     scripts:
       - name: Pasang dependensi
         script: npm ci
       - name: Sinkronkan Capacitor ke project iOS
         script: npx cap sync ios
-      - name: Pasang CocoaPods
-        script: |
-          cd ios/App
-          pod install --repo-update
       - name: Set nomor build
         script: |
           cd ios/App
           agvtool new-version -all $BUILD_NUMBER
+      - name: Pasang provisioning profile ke project (SPM, tanpa CocoaPods)
+        script: |
+          xcode-project use-profiles
       - name: Build IPA
         script: |
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
+            --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
@@ -93,19 +91,14 @@ workflows:
     environment:
       node: 22
       xcode: latest
-      cocoapods: default
     scripts:
       - name: Pasang dependensi
         script: npm ci
       - name: Sinkronkan Capacitor ke project iOS
         script: npx cap sync ios
-      - name: Pasang CocoaPods
-        script: |
-          cd ios/App
-          pod install --repo-update
       - name: Build untuk simulator
         script: |
-          xcodebuild -workspace ios/App/App.xcworkspace \
+          xcodebuild -project ios/App/App.xcodeproj \
             -scheme App -sdk iphonesimulator \
             -configuration Debug \
             -derivedDataPath build/sim \
