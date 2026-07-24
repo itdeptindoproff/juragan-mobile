@@ -54,8 +54,10 @@ workflows:
       node: 22
       xcode: latest
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: id.biz.juragansejati.portal
+        provisioning_profiles:
+          - profile: juragan_appstore
+        certificates:
+          - certificate: juragan_distribution
       vars:
         XCODE_PROJECT: "ios/App/App.xcodeproj"
         XCODE_SCHEME: "App"
@@ -68,9 +70,8 @@ workflows:
         script: |
           cd ios/App
           agvtool new-version -all $BUILD_NUMBER
-      - name: Pasang provisioning profile ke project (SPM, tanpa CocoaPods)
-        script: |
-          xcode-project use-profiles
+      - name: Terapkan provisioning profile ke Xcode project
+        script: xcode-project use-profiles
       - name: Build IPA
         script: |
           xcode-project build-ipa \
