@@ -1,2 +1,126 @@
-<!doctype html>
-<html><body>Memuat…</body></html>
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover"
+    />
+
+    <!-- DIAGNOSTIK SEMENTARA: penangkap error di layar (hapus setelah masalah
+         layar hitam WKWebView/iOS ketemu). ES5 murni agar tak pernah gagal. -->
+    <script>
+      (function () {
+        var shown = false
+        function esc(s) {
+          return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        }
+        function show(title, body) {
+          if (shown) {
+            var pre = document.getElementById('__diag_body')
+            if (pre) pre.innerHTML += '\n\n' + esc(body)
+            return
+          }
+          shown = true
+          var env =
+            'URL: ' + location.href +
+            '\nCapacitor: ' + (window.Capacitor ? 'ADA' : 'tidak ada') +
+            '\nisNative: ' +
+            (window.Capacitor && window.Capacitor.isNativePlatform
+              ? String(window.Capacitor.isNativePlatform())
+              : '-') +
+            '\ncordova: ' + (window.cordova ? 'ADA' : 'tidak ada') +
+            '\nUA: ' + navigator.userAgent
+          var d = document.createElement('div')
+          d.setAttribute(
+            'style',
+            'position:fixed;inset:0;z-index:2147483647;background:#111;color:#fff;' +
+              'font:12px/1.5 monospace;padding:16px;overflow:auto;-webkit-overflow-scrolling:touch'
+          )
+          d.innerHTML =
+            '<div style="color:#ff6b6b;font-weight:bold;font-size:14px;margin-bottom:8px">' +
+            esc(title) +
+            '</div><pre id="__diag_body" style="white-space:pre-wrap;word-break:break-word;margin:0">' +
+            esc(body) +
+            '\n\n--- LINGKUNGAN ---\n' +
+            esc(env) +
+            '</pre>'
+          if (document.body) document.body.appendChild(d)
+          else
+            document.addEventListener('DOMContentLoaded', function () {
+              document.body.appendChild(d)
+            })
+        }
+        window.addEventListener('error', function (e) {
+          if (e && e.error) {
+            show('JS Error', (e.error.message || e.message || 'error') + '\n' + (e.error.stack || ''))
+          } else if (e && e.message) {
+            show('Resource/Script Error', e.message + '\n' + (e.filename || '') + ':' + (e.lineno || ''))
+          }
+        })
+        window.addEventListener('unhandledrejection', function (e) {
+          var r = e && e.reason
+          show(
+            'Promise Rejection',
+            (r && (r.message || r.stack)) ? (r.message + '\n' + (r.stack || '')) : String(r)
+          )
+        })
+        // Watchdog: kalau #app masih kosong setelah 6 detik → kemungkinan gagal mount.
+        setTimeout(function () {
+          var app = document.getElementById('app')
+          if (!shown && (!app || app.children.length === 0)) {
+            show('App tidak ter-mount dalam 6 detik', 'SPA belum merender apa pun (kemungkinan error senyap saat boot).')
+          }
+        }, 6000)
+      })()
+    </script>
+
+    <!-- PWA: manifest & theme -->
+    <link rel="manifest" href="/portal/manifest.json" />
+    <meta name="theme-color" content="#202C42" />
+    <meta name="application-name" content="Juragan" />
+    <meta name="description" content="Portal aplikasi internal Juragan" />
+
+    <!-- PWA: iOS support (Safari tidak baca manifest sepenuhnya) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Juragan" />
+    <link rel="apple-touch-icon" href="/portal/apple-touch-icon.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="96x96" href="/portal/favicon-96x96.png" />
+    <link rel="icon" type="image/x-icon" href="/portal/favicon.ico" />
+    <link rel="shortcut icon" href="/portal/favicon.ico" />
+
+    <title>Juragan</title>
+    <script type="module" crossorigin src="/assets/index-D5Filcm9.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BVGhEbHJ.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="modals"></div>
+    <div id="popovers"></div>
+
+    <script> window.csrf_token = '{{ csrf_token }}'; </script>
+    <script>
+      // Defensive: kalau Frappe inject manifest/PWA meta-nya sendiri ke HTML
+      // ini lewat layout wrapper, hapus semua yang BUKAN milik Juragan Home.
+      (function () {
+        document.querySelectorAll('link[rel="manifest"]').forEach(function (el) {
+          if (!el.href.includes('/portal/manifest.json')) el.remove()
+        })
+        document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(function (el) {
+          if (!el.href.includes('/portal/')) el.remove()
+        })
+        document.querySelectorAll('meta[name="theme-color"]').forEach(function (el, i) {
+          if (i > 0) el.remove()
+        })
+        document
+          .querySelectorAll('meta[name="apple-mobile-web-app-title"]')
+          .forEach(function (el) {
+            if (el.content !== 'Juragan') el.remove()
+          })
+      })()
+    </script>
+  </body>
+</html>

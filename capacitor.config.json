@@ -3,7 +3,9 @@
   "appName": "Juragan",
   "webDir": "www",
   "server": {
-    "url": "https://app.juragansejati.biz.id/portal/",
-    "cleartext": false
+    "androidScheme": "https",
+    "iosScheme": "https",
+    "cleartext": false,
+    "allowNavigation": ["app.juragansejati.biz.id", "*.juragansejati.biz.id"]
   }
 }
