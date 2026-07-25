@@ -93,13 +93,53 @@
     <link rel="shortcut icon" href="/portal/favicon.ico" />
 
     <title>Juragan</title>
-    <script type="module" crossorigin src="/assets/index-D5Filcm9.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BVGhEbHJ.css">
+
+    <!-- Splash boot (C3): tampil saat aset dimuat, dihapus main.js setelah mount. -->
+    <style>
+      #boot-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        background: #202c42;
+        color: #fff;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #boot-splash .bs-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      #boot-splash .bs-spin {
+        width: 28px;
+        height: 28px;
+        border: 3px solid rgba(255, 255, 255, 0.25);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: bs-rotate 0.8s linear infinite;
+      }
+      @keyframes bs-rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-CIYQk41-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B8g_zphP.css">
   </head>
   <body>
     <div id="app"></div>
     <div id="modals"></div>
     <div id="popovers"></div>
+
+    <div id="boot-splash">
+      <div class="bs-title">Juragan</div>
+      <div class="bs-spin"></div>
+    </div>
 
     <script> window.csrf_token = '{{ csrf_token }}'; </script>
     <script>
