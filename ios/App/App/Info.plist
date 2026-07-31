@@ -24,6 +24,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Kamera digunakan untuk memfoto dokumen lampiran pengajuan.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Galeri diakses untuk melampirkan foto dokumen pada pengajuan.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Lokasi digunakan untuk mendukung pengiriman notifikasi yang relevan. Aplikasi tidak melacak lokasi Anda di latar belakang.</string>
 	<key>LSRequiresIPhoneOS</key>

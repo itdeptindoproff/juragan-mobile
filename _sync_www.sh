@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
-SRC="$HOME/frappe-bench16/apps/juragan/home/dist-mobile"
-DST="$HOME/juragan-mobile/www"
+SRC="$HOME/frappe-bench/apps/juragan/home/dist-mobile"
+DST="$HOME/frappe-bench/apps/juragan-mobile/www"
 echo "SRC=$SRC"
 echo "DST=$DST"
 [ -d "$SRC" ] || { echo "dist-mobile tidak ada, build dulu"; exit 1; }
