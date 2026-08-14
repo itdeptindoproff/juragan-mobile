@@ -6,6 +6,6 @@
     "androidScheme": "https",
     "iosScheme": "https",
     "cleartext": false,
-    "allowNavigation":  "https://percentage-involves-narrative-adipex.trycloudflare.com"
+    "allowNavigation": ["app.juragansejati.biz.id", "*.juragansejati.biz.id"]
   }
 }
