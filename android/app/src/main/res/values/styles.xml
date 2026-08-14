@@ -26,7 +26,14 @@
     </style>
 
 
+    <!--
+        postSplashScreenTheme WAJIB ada. Activity dideklarasikan memakai tema
+        splash ini di AndroidManifest, jadi tanpa baris ini AppTheme.NoActionBar
+        (yang memuat windowBackground putih) TIDAK PERNAH terpakai setelah splash
+        selesai — window background tetap mengikuti bawaan DayNight.
+    -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
         <item name="android:background">@drawable/splash</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
     </style>
 </resources>
