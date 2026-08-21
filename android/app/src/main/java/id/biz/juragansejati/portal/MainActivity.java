@@ -32,10 +32,6 @@ public class MainActivity extends BridgeActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // Pendaftaran plugin harus dilakukan sebelum super.onCreate agar
-        // jembatan Capacitor mengenalinya saat WebView dibuat.
-        registerPlugin(FileMetaPlugin.class);
-
         super.onCreate(savedInstanceState);
 
         Window window = getWindow();
