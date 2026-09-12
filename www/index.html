@@ -11,7 +11,7 @@
     />
 
     <!-- PWA: manifest & theme -->
-    <link rel="manifest" href="/portal/manifest.json" />
+    <link rel="manifest" href="/assets/juragan/portal/manifest.json" />
     <meta name="theme-color" content="#202C42" />
     <meta name="application-name" content="Juragan" />
     <meta name="description" content="Portal aplikasi internal Juragan" />
@@ -20,14 +20,271 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Juragan" />
-    <link rel="apple-touch-icon" href="/portal/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/assets/juragan/portal/apple-touch-icon.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="96x96" href="/portal/favicon-96x96.png" />
-    <link rel="icon" type="image/x-icon" href="/portal/favicon.ico" />
-    <link rel="shortcut icon" href="/portal/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/juragan/portal/favicon-96x96.png" />
+    <link rel="icon" type="image/x-icon" href="/assets/juragan/portal/favicon.ico" />
+    <link rel="shortcut icon" href="/assets/juragan/portal/favicon.ico" />
 
     <title>Juragan</title>
+	<script>/* Inlined by Vite before the page paints, on web and native bundles.
+ * Frontend-only preferences: never touches Frappe, cookies or account data. */
+;(function () {
+	'use strict'
+	const KEY = 'juragan.portal.appearance.v1'
+	const themes = [
+		{
+			id: 'default',
+			name: 'Default',
+			mode: 'light',
+			canvas: '#eef0f7',
+			page: '#f9fafb',
+			surface: '#ffffff',
+			raised: '#f3f3f3',
+			ink: '#171717',
+			muted: '#7c7c7c',
+			line: '#e2e2e2',
+			primary: '#185fa5',
+			onPrimary: '#ffffff',
+			action: '#2f6bff',
+		},
+		{
+			id: 'retro',
+			name: 'Retro',
+			mode: 'light',
+			canvas: '#ece3ca',
+			page: '#f1e9d4',
+			surface: '#fff8e7',
+			raised: '#e9dfc4',
+			ink: '#332c21',
+			muted: '#74634e',
+			line: '#c4b38c',
+			primary: '#756020',
+			onPrimary: '#ffffff',
+			action: '#80621c',
+		},
+		{
+			id: 'lemonade',
+			name: 'Lemonade',
+			mode: 'light',
+			canvas: '#edf4d8',
+			page: '#f5f9e9',
+			surface: '#fcfff2',
+			raised: '#e3edc7',
+			ink: '#243217',
+			muted: '#5d7046',
+			line: '#b6c98e',
+			primary: '#3f700b',
+			onPrimary: '#ffffff',
+			action: '#4a780d',
+		},
+		{
+			id: 'wireframe',
+			name: 'Wireframe',
+			mode: 'light',
+			canvas: '#f2f2f2',
+			page: '#f7f7f7',
+			surface: '#ffffff',
+			raised: '#e8e8e8',
+			ink: '#171717',
+			muted: '#626262',
+			line: '#909090',
+			primary: '#303030',
+			onPrimary: '#ffffff',
+			action: '#303030',
+		},
+		{
+			id: 'dark',
+			name: 'Dark',
+			mode: 'dark',
+			canvas: '#0d1423',
+			page: '#101827',
+			surface: '#1b2639',
+			raised: '#27354b',
+			ink: '#eef3fb',
+			muted: '#a5b4cb',
+			line: '#40516b',
+			primary: '#76b5ff',
+			onPrimary: '#101827',
+			action: '#76b5ff',
+		},
+		{
+			id: 'dracula',
+			name: 'Dracula',
+			mode: 'dark',
+			canvas: '#181920',
+			page: '#1c1d26',
+			surface: '#282a36',
+			raised: '#363848',
+			ink: '#f8f8f2',
+			muted: '#b5b3cc',
+			line: '#53546c',
+			primary: '#bd93f9',
+			onPrimary: '#21182e',
+			action: '#bd93f9',
+		},
+		{
+			id: 'synthwave',
+			name: 'Synthwave',
+			mode: 'dark',
+			canvas: '#160c2b',
+			page: '#1c1035',
+			surface: '#291747',
+			raised: '#392255',
+			ink: '#f8efff',
+			muted: '#c2acd9',
+			line: '#654680',
+			primary: '#f09bdd',
+			onPrimary: '#28112d',
+			action: '#e9a1ff',
+		},
+	]
+	const defaults = { mode: 'light', lightTheme: 'default', darkTheme: 'dark' }
+	const media = window.matchMedia('(prefers-color-scheme: dark)')
+	const listeners = new Set()
+	let preferences
+	let storageAvailable = true
+
+	function normalize(value) {
+		const p = value && typeof value === 'object' ? value : {}
+		return {
+			mode: ['light', 'dark', 'system'].includes(p.mode) ? p.mode : defaults.mode,
+			lightTheme: themes.some((t) => t.id === p.lightTheme && t.mode === 'light')
+				? p.lightTheme
+				: defaults.lightTheme,
+			darkTheme: themes.some((t) => t.id === p.darkTheme && t.mode === 'dark')
+				? p.darkTheme
+				: defaults.darkTheme,
+		}
+	}
+	function read() {
+		try {
+			return normalize(JSON.parse(window.localStorage.getItem(KEY)))
+		} catch (error) {
+			return { ...defaults }
+		}
+	}
+	function rgb(hex) {
+		return hex
+			.slice(1)
+			.match(/../g)
+			.map((v) => parseInt(v, 16))
+			.join(' ')
+	}
+	function state() {
+		const mode =
+			preferences.mode === 'system' ? (media.matches ? 'dark' : 'light') : preferences.mode
+		const theme = themes.find((t) => t.id === preferences[mode + 'Theme'])
+		return { ...preferences, resolvedMode: mode, theme, storageAvailable }
+	}
+	function apply() {
+		const current = state()
+		const theme = current.theme
+		const root = document.documentElement
+		root.dataset.appearance = theme.id
+		root.dataset.theme = current.resolvedMode
+		root.style.colorScheme = current.resolvedMode
+		for (const key of [
+			'canvas',
+			'page',
+			'surface',
+			'raised',
+			'ink',
+			'muted',
+			'line',
+			'primary',
+			'onPrimary',
+			'action',
+		]) {
+			root.style.setProperty('--ui-' + key, rgb(theme[key]))
+		}
+		// A few existing brand shades have distinct defaults. Other themes share
+		// their selected accent and content tokens across all of these roles.
+		const brand =
+			theme.id === 'default'
+				? {
+						heading: '#1e2a52',
+						subtle: '#5b6ea0',
+						nav: '#7184a8',
+						icon: '#2575f0',
+						hover: '#1a2536',
+						active: '#141c2a',
+					}
+				: {
+						heading: theme.ink,
+						subtle: theme.muted,
+						nav: theme.muted,
+						icon: theme.primary,
+						hover: theme.primary,
+						active: theme.primary,
+					}
+		for (const key of Object.keys(brand))
+			root.style.setProperty('--ui-' + key, rgb(brand[key]))
+		root.style.setProperty(
+			'--ui-strong',
+			rgb(
+				theme.id === 'default'
+					? '#1e2a52'
+					: theme.mode === 'dark'
+						? '#303248'
+						: theme.primary,
+			),
+		)
+		root.style.backgroundColor = theme.page
+		const meta = document.querySelector('meta[name="theme-color"]')
+		if (meta) meta.content = theme.page
+		// Native plugin is optional; do not require an app rebuild for themes.
+		if (window.Capacitor?.isNativePlatform?.()) {
+			const status = window.Capacitor.Plugins?.StatusBar
+			try {
+				Promise.resolve(
+					status?.setStyle?.({
+						style: current.resolvedMode === 'dark' ? 'DARK' : 'LIGHT',
+					}),
+				).catch(() => {})
+				Promise.resolve(status?.setBackgroundColor?.({ color: theme.page })).catch(
+					() => {},
+				)
+			} catch (error) {
+				/* WebView may not expose StatusBar. */
+			}
+		}
+		listeners.forEach((fn) => fn(current))
+	}
+	function setPreferences(patch) {
+		preferences = normalize({ ...preferences, ...patch })
+		try {
+			window.localStorage.setItem(KEY, JSON.stringify(preferences))
+			storageAvailable = true
+		} catch (error) {
+			storageAvailable = false
+		}
+		apply()
+	}
+	preferences = read()
+	window.JuraganAppearance = {
+		themes,
+		getState: state,
+		setPreferences,
+		subscribe(fn) {
+			listeners.add(fn)
+			return () => listeners.delete(fn)
+		},
+	}
+	media.addEventListener('change', () => {
+		if (preferences.mode === 'system') apply()
+	})
+	window.addEventListener('storage', (event) => {
+		if (event.key === KEY || event.key === null) {
+			preferences = read()
+			apply()
+		}
+	})
+	window.addEventListener('pageshow', apply)
+	apply()
+})()
+</script>
 
     <!-- Splash boot (C3): tampil saat aset dimuat, dihapus main.js setelah mount. -->
     <style>
@@ -63,8 +320,8 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-BRkq0O-j.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-gykFrlNL.css">
+    <script type="module" crossorigin src="/assets/index-N4Oz6cfO.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BPvisE6t.css">
   </head>
   <body>
     <div id="app"></div>
@@ -82,10 +339,10 @@
       // ini lewat layout wrapper, hapus semua yang BUKAN milik Juragan Home.
       (function () {
         document.querySelectorAll('link[rel="manifest"]').forEach(function (el) {
-          if (!el.href.includes('/portal/manifest.json')) el.remove()
+          if (!el.href.includes('/assets/juragan/portal/manifest.json')) el.remove()
         })
         document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(function (el) {
-          if (!el.href.includes('/portal/')) el.remove()
+          if (!el.href.includes('/assets/juragan/portal/')) el.remove()
         })
         document.querySelectorAll('meta[name="theme-color"]').forEach(function (el, i) {
           if (i > 0) el.remove()
