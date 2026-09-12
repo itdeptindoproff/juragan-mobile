@@ -66,9 +66,14 @@ workflows:
         script: npm ci
       - name: Sinkronkan Capacitor ke project iOS
         script: npx cap sync ios
-      - name: Set nomor build
+      - name: Set versi rilis & nomor build
         script: |
+          # Versi rilis (marketing) iOS mengikuti Android (versionName di
+          # build.gradle) agar keduanya tidak pernah beda lagi. Nomor build
+          # (CFBundleVersion) tetap dari nomor build Codemagic.
+          VN=$(grep -m1 versionName android/app/build.gradle | sed -E 's/.*versionName "([^"]+)".*/\1/')
           cd ios/App
+          [ -n "$VN" ] && agvtool new-marketing-version "$VN"
           agvtool new-version -all $BUILD_NUMBER
       - name: Terapkan provisioning profile ke Xcode project
         script: xcode-project use-profiles
