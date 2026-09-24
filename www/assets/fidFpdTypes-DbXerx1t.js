@@ -1,0 +1,2 @@
+const t={fid:{title:"FID",listRoute:"Fid",detailRoute:"FidDetail",isFid:!0},fpd:{title:"FPD",listRoute:"Fpd",detailRoute:"FpdDetail",isFid:!1},fid_cutoff:{title:"FID Cut Off Bulan Sebelumnya",listRoute:"FidCutoff",detailRoute:"FidCutoffDetail",isFid:!0},fpd_cutoff:{title:"FPD Cut Off Bulan Sebelumnya",listRoute:"FpdCutoff",detailRoute:"FpdCutoffDetail",isFid:!1}};function e(i){return t[i]||t.fid}export{e as f};
+//# sourceMappingURL=fidFpdTypes-DbXerx1t.js.map
