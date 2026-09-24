@@ -1,0 +1,2 @@
+import{am as i,Q as t,J as o,$ as a,s as u,d as c}from"./index-BnXvrI43.js";function f(r){return typeof r=="function"?r():c(r)}function p(r){i("dp-filter:",{kind:"session"});const s=()=>String(f(r)||"unknown"),n=()=>u.user||"anon";return{readSession(e={}){return o("session",n(),s(),e)},writeSession(e){return t("session",n(),s(),e)},clearSession(){a("session",n(),s())},readPreferences(e={}){return o("pref",n(),s(),e)},writePreferences(e){return t("pref",n(),s(),e)}}}export{p as u};
+//# sourceMappingURL=useListPersistence-DRcIlXb7.js.map
