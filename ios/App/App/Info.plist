@@ -29,9 +29,13 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Galeri diakses untuk melampirkan foto dokumen pada pengajuan.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Lokasi digunakan untuk mendukung pengiriman notifikasi yang relevan. Aplikasi tidak melacak lokasi Anda di latar belakang.</string>
+	<string>Lokasi digunakan untuk mencatat titik absensi saat Anda absen masuk dan pulang, serta untuk fitur Cek Unit. Lokasi hanya dibaca saat fitur tersebut dipakai dan tidak dilacak di latar belakang.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
