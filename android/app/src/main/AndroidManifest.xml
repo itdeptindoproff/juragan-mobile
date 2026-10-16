@@ -19,6 +19,85 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--
+              App Links: link Desk/portal yang ditekan di HP dibuka di aplikasi ini.
+              Daftar slug /app/<slug> WAJIB sama dengan DESK_TO_PORTAL di
+              juragan/api/portal/mobile_redirect.py (repo juragan). Sengaja tidak
+              memakai /app/* supaya link Desk yang belum punya halaman portal
+              (mis. /app/proses-pencairan-pengajuan, /app/transaksi-tunai)
+              tetap terbuka di browser / in-app browser sebagai Desk.
+              Verifikasi domain: https://app.juragansejati.biz.id/.well-known/assetlinks.json
+            -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="app.juragansejati.biz.id" />
+                <data android:path="/portal" />
+                <data android:pathPrefix="/portal/" />
+                <data android:path="/app" />
+                <data android:path="/app/data-pengajuan" />
+                <data android:pathPrefix="/app/data-pengajuan/" />
+                <data android:path="/app/surat-diskresi" />
+                <data android:pathPrefix="/app/surat-diskresi/" />
+                <data android:path="/app/master-data-nasabah" />
+                <data android:pathPrefix="/app/master-data-nasabah/" />
+                <data android:path="/app/master-karyawan" />
+                <data android:pathPrefix="/app/master-karyawan/" />
+                <data android:path="/app/perbaikan-absen" />
+                <data android:pathPrefix="/app/perbaikan-absen/" />
+                <data android:path="/app/penyesuaian-cuti" />
+                <data android:pathPrefix="/app/penyesuaian-cuti/" />
+                <data android:path="/app/deviasi" />
+                <data android:pathPrefix="/app/deviasi/" />
+                <data android:path="/app/tts" />
+                <data android:pathPrefix="/app/tts/" />
+                <data android:path="/app/bstk" />
+                <data android:pathPrefix="/app/bstk/" />
+                <data android:path="/app/stpl-unit-hilang" />
+                <data android:pathPrefix="/app/stpl-unit-hilang/" />
+                <data android:path="/app/request-dokumen-collection" />
+                <data android:pathPrefix="/app/request-dokumen-collection/" />
+                <data android:path="/app/motor-tarikan" />
+                <data android:pathPrefix="/app/motor-tarikan/" />
+                <data android:path="/app/stock-out-motor" />
+                <data android:pathPrefix="/app/stock-out-motor/" />
+                <data android:path="/app/invoice-motor" />
+                <data android:pathPrefix="/app/invoice-motor/" />
+                <data android:path="/app/tebus-motor-nasabah" />
+                <data android:pathPrefix="/app/tebus-motor-nasabah/" />
+                <data android:path="/app/request-ayda-motor" />
+                <data android:pathPrefix="/app/request-ayda-motor/" />
+                <data android:path="/app/request-pendaftaran-broker" />
+                <data android:pathPrefix="/app/request-pendaftaran-broker/" />
+                <data android:path="/app/resi" />
+                <data android:pathPrefix="/app/resi/" />
+                <data android:path="/app/pengajuan-cuti" />
+                <data android:pathPrefix="/app/pengajuan-cuti/" />
+                <data android:path="/app/kehadiran" />
+                <data android:pathPrefix="/app/kehadiran/" />
+                <data android:path="/app/oper-pic" />
+                <data android:pathPrefix="/app/oper-pic/" />
+                <data android:path="/app/todo" />
+                <data android:pathPrefix="/app/todo/" />
+                <data android:path="/app/target-dan-realisasi" />
+                <data android:pathPrefix="/app/target-dan-realisasi/" />
+                <data android:path="/app/data-fid" />
+                <data android:pathPrefix="/app/data-fid/" />
+                <data android:path="/app/data-fpd" />
+                <data android:pathPrefix="/app/data-fpd/" />
+                <data android:path="/app/data-fid-cut-off-bulan-sebelumnya" />
+                <data android:pathPrefix="/app/data-fid-cut-off-bulan-sebelumnya/" />
+                <data android:path="/app/data-fpd-cut-off-bulan-sebelumnya" />
+                <data android:pathPrefix="/app/data-fpd-cut-off-bulan-sebelumnya/" />
+                <data android:path="/app/notification-log" />
+                <data android:pathPrefix="/app/notification-log/" />
+                <data android:path="/app/sales-dashboard-juragan" />
+                <data android:path="/app/cmo-sales-dashboard" />
+                <data android:path="/app/fid-fpd-dashboard" />
+                <data android:path="/app/cmo-dashboard-fid-fpd" />
+                <data android:path="/app/realisasi-collection" />
+            </intent-filter>
         </activity>
 
         <provider
