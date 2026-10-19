@@ -32,7 +32,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="authentic-cayman-williams-tulsa.trycloudflare.com" />
+                <data android:scheme="https" android:host="app.juragansejati.biz.id" />
                 <data android:path="/portal" />
                 <data android:pathPrefix="/portal/" />
                 <data android:path="/app" />
