@@ -9,6 +9,17 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.getcapacitor.BridgeActivity;
+import com.getcapacitor.CapConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Navigation bar (taskbar) dibuat menyatu dengan aplikasi.
@@ -30,8 +41,19 @@ import com.getcapacitor.BridgeActivity;
  */
 public class MainActivity extends BridgeActivity {
 
+    /**
+     * Android memuat portal LANGSUNG dari server produksi, jadi update tampilan
+     * di server langsung sampai ke HP tanpa upload ke Google Play. iOS tetap
+     * memakai bundel lokal www/ (aplikasi yang hanya membuka situs berisiko
+     * ditolak App Review Apple). Perubahan native (plugin, izin, App Links)
+     * tetap butuh rilis baru di Google Play.
+     */
+    private static final String SERVER_URL = "https://app.juragansejati.biz.id/portal/";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Harus sebelum super.onCreate(): BridgeActivity.load() memakai `config`.
+        config = configDariServer();
         super.onCreate(savedInstanceState);
 
         Window window = getWindow();
@@ -58,5 +80,37 @@ public class MainActivity extends BridgeActivity {
                 WindowCompat.getInsetsController(window, window.getDecorView());
         controller.setAppearanceLightNavigationBars(true);
         controller.setAppearanceLightStatusBars(true);
+    }
+
+    /**
+     * capacitor.config.json hasil `cap sync` (dipakai bersama iOS) ditambah
+     * server.url. Gagal dibaca → null → Capacitor memakai config bawaan
+     * (bundel lokal), jadi aplikasi tetap bisa dibuka.
+     */
+    private CapConfig configDariServer() {
+        try (InputStream in = getAssets().open("capacitor.config.json")) {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buf = new byte[4096];
+            int n;
+            while ((n = in.read(buf)) != -1) {
+                out.write(buf, 0, n);
+            }
+            JSONObject json = new JSONObject(out.toString("UTF-8"));
+            JSONObject server = json.optJSONObject("server");
+            if (server == null) {
+                server = new JSONObject();
+            }
+            server.put("url", SERVER_URL);
+            json.put("server", server);
+
+            File dir = new File(getCacheDir(), "capconfig");
+            dir.mkdirs();
+            try (FileOutputStream f = new FileOutputStream(new File(dir, "capacitor.config.json"))) {
+                f.write(json.toString().getBytes(StandardCharsets.UTF_8));
+            }
+            return CapConfig.loadFromFile(this, dir.getAbsolutePath());
+        } catch (IOException | JSONException e) {
+            return null;
+        }
     }
 }
