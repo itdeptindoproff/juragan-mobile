@@ -1,0 +1,2 @@
+import t from"./TtsDetail-Jm-hnxts.js";import{o,j as r}from"./index-B3msIcPz.js";import"./ttsStatus-UPTXJo0r.js";import"./useBackNavigation-BG5CSUPj.js";import"./navigationOrigin-Cc-tJtMJ.js";import"./KembalikanStokSheet-CiTasL8y.js";import"./imageCompress-C5QvPxHT.js";import"./fileUpload-B7RDqzl_.js";const u={__name:"TtsKspDetail",setup(p){return(m,e)=>(o(),r(t,{doctype:"TTS KSP"}))}};export{u as default};
+//# sourceMappingURL=TtsKspDetail-BcN99fb3.js.map
